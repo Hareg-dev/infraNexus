@@ -1,0 +1,13 @@
+FROM rust:latest as builder
+WORKDIR /app
+# Copy manifest files
+COPY Cargo.toml Cargo.lock ./
+# Copy source code
+COPY crates ./crates
+# Build
+RUN cargo build --release -p gateway
+
+FROM debian:bookworm-slim
+RUN apt-get update && apt-get install -y ca-certificates && rm -rf /var/lib/apt/lists/*
+COPY --from=builder /app/target/release/gateway /usr/local/bin/gateway
+CMD ["gateway"]

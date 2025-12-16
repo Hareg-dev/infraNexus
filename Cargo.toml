@@ -1,0 +1,10 @@
+[workspace]
+members = [
+    "crates/gateway",
+    #"crates/router",
+    #"crates/cache",
+    #"crates/protocol",
+    #"crates/sdk",
+    #"crates/common",
+]
+resolver = "2"
